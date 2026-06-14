@@ -1,0 +1,1157 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AuraNova — Your Personal Glow AI Coach</title>
+        <meta
+            name="description"
+            content="AI-powered skincare analysis. Snap a selfie, scan your products, get evidence-based routines backed by dermatological research. Glow up with science! ✨"
+        />
+        <link rel="icon" type="image/png" href="favicon.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            /* ─── Reset & Base ─── */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            :root {
+                --purple: #8b5cf6;
+                --purple-dark: #7c3aed;
+                --purple-light: #ede9fe;
+                --pink: #ec4899;
+                --pink-dark: #db2777;
+                --pink-light: #fce7f3;
+                --orange: #f97316;
+                --green: #22c55e;
+                --green-light: #dcfce7;
+                --blue: #3b82f6;
+                --blue-light: #dbeafe;
+                --indigo: #6366f1;
+                --yellow: #eab308;
+                --yellow-light: #fef9c3;
+                --white: #ffffff;
+                --bg: #faf5ff;
+                --gray-50: #f9fafb;
+                --gray-100: #f3f4f6;
+                --gray-200: #e5e7eb;
+                --gray-400: #9ca3af;
+                --gray-500: #6b7280;
+                --gray-600: #4b5563;
+                --gray-700: #374151;
+                --gray-800: #1f2937;
+                --radius-sm: 8px;
+                --radius-md: 12px;
+                --radius-lg: 16px;
+                --radius-xl: 20px;
+                --radius-full: 9999px;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                font-family:
+                    "Inter",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    sans-serif;
+                background: var(--bg);
+                color: var(--gray-800);
+                line-height: 1.6;
+                overflow-x: hidden;
+            }
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+            img {
+                max-width: 100%;
+                display: block;
+            }
+
+            /* ─── Gradients ─── */
+            .gradient-text {
+                background: linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--pink),
+                    var(--orange)
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .gradient-bg {
+                background: linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--pink),
+                    var(--orange)
+                );
+            }
+            .gradient-bg-soft {
+                background: linear-gradient(135deg, #f5f3ff, #fdf2f8, #fff7ed);
+            }
+            .gradient-bg-card-purple {
+                background: linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple-dark)
+                );
+            }
+            .gradient-bg-card-pink {
+                background: linear-gradient(
+                    135deg,
+                    var(--pink),
+                    var(--pink-dark)
+                );
+            }
+            .gradient-bg-card-indigo {
+                background: linear-gradient(135deg, var(--indigo), #4f46e5);
+            }
+
+            /* ─── Nav ─── */
+            .nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                background: rgba(250, 245, 255, 0.85);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+                padding: 0 24px;
+            }
+            .nav-inner {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 64px;
+            }
+            .nav-logo {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 22px;
+                font-weight: 800;
+                color: var(--purple);
+                letter-spacing: -0.5px;
+            }
+            .nav-logo-icon {
+                width: 36px;
+                height: 36px;
+                background: linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--pink),
+                    var(--orange)
+                );
+                border-radius: var(--radius-sm);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+            }
+            .nav-cta {
+                background: linear-gradient(135deg, var(--purple), var(--pink));
+                color: var(--white);
+                border: none;
+                padding: 10px 24px;
+                border-radius: var(--radius-full);
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+            }
+            .nav-cta:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
+            }
+
+            /* ─── Sections ─── */
+            section {
+                padding: 100px 24px;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            /* ─── Hero ─── */
+            .hero {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                padding-top: 64px;
+                position: relative;
+                overflow: hidden;
+            }
+            .hero::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                left: -20%;
+                width: 80%;
+                height: 150%;
+                background: radial-gradient(
+                    circle at 30% 50%,
+                    rgba(139, 92, 246, 0.08),
+                    transparent 60%
+                );
+                pointer-events: none;
+            }
+            .hero::after {
+                content: "";
+                position: absolute;
+                top: -30%;
+                right: -15%;
+                width: 60%;
+                height: 130%;
+                background: radial-gradient(
+                    circle at 70% 40%,
+                    rgba(236, 72, 153, 0.06),
+                    transparent 60%
+                );
+                pointer-events: none;
+            }
+            .hero-content {
+                position: relative;
+                z-index: 1;
+                text-align: center;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            .hero-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: var(--yellow-light);
+                border: 1px solid #fde68a;
+                padding: 6px 16px;
+                border-radius: var(--radius-full);
+                font-size: 13px;
+                font-weight: 600;
+                color: #92400e;
+                margin-bottom: 32px;
+                animation: float 3s ease-in-out infinite;
+            }
+            .hero-app-icon {
+                width: 96px;
+                height: 96px;
+                border-radius: 22px;
+                margin: 0 auto 28px;
+                box-shadow: 0 20px 60px rgba(139, 92, 246, 0.25);
+                animation: pulse 2.5s ease-in-out infinite;
+            }
+            .hero h1 {
+                font-size: clamp(42px, 8vw, 72px);
+                font-weight: 900;
+                line-height: 1.05;
+                letter-spacing: -2px;
+                margin-bottom: 16px;
+            }
+            .hero-subtitle {
+                font-size: clamp(16px, 2.5vw, 20px);
+                color: var(--gray-600);
+                max-width: 500px;
+                margin: 0 auto 12px;
+            }
+            .hero-desc {
+                font-size: 15px;
+                color: var(--gray-500);
+                max-width: 480px;
+                margin: 0 auto 36px;
+                line-height: 1.7;
+            }
+            .hero-buttons {
+                display: flex;
+                gap: 14px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .btn-primary {
+                background: linear-gradient(135deg, var(--purple), var(--pink));
+                color: var(--white);
+                border: none;
+                padding: 14px 36px;
+                border-radius: var(--radius-full);
+                font-size: 16px;
+                font-weight: 700;
+                cursor: pointer;
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 32px rgba(139, 92, 246, 0.4);
+            }
+            .btn-secondary {
+                background: var(--white);
+                color: var(--purple-dark);
+                border: 2px solid var(--purple-light);
+                padding: 14px 36px;
+                border-radius: var(--radius-full);
+                font-size: 16px;
+                font-weight: 700;
+                cursor: pointer;
+                transition:
+                    transform 0.2s,
+                    border-color 0.2s;
+            }
+            .btn-secondary:hover {
+                transform: translateY(-2px);
+                border-color: var(--purple);
+            }
+            @keyframes float {
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-6px);
+                }
+            }
+            @keyframes pulse {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.06);
+                }
+            }
+
+            /* ─── Section Headers ─── */
+            .section-label {
+                display: inline-block;
+                font-size: 13px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                color: var(--purple);
+                margin-bottom: 12px;
+            }
+            .section-title {
+                font-size: clamp(28px, 5vw, 42px);
+                font-weight: 800;
+                letter-spacing: -1px;
+                margin-bottom: 16px;
+                line-height: 1.15;
+            }
+            .section-desc {
+                font-size: 17px;
+                color: var(--gray-500);
+                max-width: 560px;
+                line-height: 1.7;
+            }
+            .center {
+                text-align: center;
+            }
+            .mx-auto {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* ─── How It Works ─── */
+            .steps-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 28px;
+                margin-top: 56px;
+            }
+            .step-card {
+                background: var(--white);
+                border-radius: var(--radius-xl);
+                padding: 36px 28px;
+                border: 1px solid var(--gray-200);
+                position: relative;
+                transition:
+                    transform 0.25s,
+                    box-shadow 0.25s;
+            }
+            .step-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 16px 48px rgba(0, 0, 0, 0.06);
+            }
+            .step-number {
+                width: 44px;
+                height: 44px;
+                border-radius: var(--radius-full);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+                font-weight: 800;
+                color: var(--white);
+                margin-bottom: 20px;
+            }
+            .step-card:nth-child(1) .step-number {
+                background: linear-gradient(135deg, var(--purple), var(--pink));
+            }
+            .step-card:nth-child(2) .step-number {
+                background: linear-gradient(135deg, var(--pink), var(--orange));
+            }
+            .step-card:nth-child(3) .step-number {
+                background: linear-gradient(
+                    135deg,
+                    var(--indigo),
+                    var(--purple)
+                );
+            }
+            .step-card h3 {
+                font-size: 20px;
+                font-weight: 700;
+                margin-bottom: 8px;
+            }
+            .step-card p {
+                font-size: 15px;
+                color: var(--gray-500);
+                line-height: 1.65;
+            }
+
+            /* ─── Pillars ─── */
+            .pillars-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+                gap: 28px;
+                margin-top: 56px;
+            }
+            .pillar-card {
+                border-radius: var(--radius-xl);
+                padding: 40px 32px;
+                color: var(--white);
+                position: relative;
+                overflow: hidden;
+                transition: transform 0.25s;
+            }
+            .pillar-card:hover {
+                transform: translateY(-4px);
+            }
+            .pillar-card::before {
+                content: "";
+                position: absolute;
+                top: -20%;
+                right: -20%;
+                width: 200px;
+                height: 200px;
+                background: rgba(255, 255, 255, 0.06);
+                border-radius: 50%;
+            }
+            .pillar-icon {
+                width: 52px;
+                height: 52px;
+                background: rgba(255, 255, 255, 0.18);
+                border-radius: var(--radius-md);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 26px;
+                margin-bottom: 20px;
+            }
+            .pillar-card h3 {
+                font-size: 22px;
+                font-weight: 800;
+                margin-bottom: 10px;
+            }
+            .pillar-card p {
+                font-size: 14px;
+                opacity: 0.88;
+                line-height: 1.7;
+                margin-bottom: 16px;
+            }
+            .pillar-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .pillar-tag {
+                background: rgba(255, 255, 255, 0.16);
+                padding: 5px 12px;
+                border-radius: var(--radius-full);
+                font-size: 12px;
+                font-weight: 600;
+            }
+            .pillar-stat {
+                margin-top: 20px;
+                padding-top: 20px;
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+                display: flex;
+                gap: 28px;
+            }
+            .pillar-stat-val {
+                font-size: 28px;
+                font-weight: 900;
+            }
+            .pillar-stat-label {
+                font-size: 11px;
+                opacity: 0.7;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            /* ─── Pipeline ─── */
+            .pipeline {
+                background: var(--white);
+                border-radius: var(--radius-xl);
+                border: 1px solid var(--gray-200);
+                padding: 48px;
+                margin-top: 56px;
+            }
+            .pipeline h3 {
+                font-size: 20px;
+                font-weight: 700;
+                margin-bottom: 28px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .pipeline-flow {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .pipe-step {
+                background: linear-gradient(135deg, #f5f3ff, #fdf2f8);
+                border-radius: var(--radius-md);
+                padding: 16px 20px;
+                text-align: center;
+                min-width: 140px;
+                border: 1px solid #e9d5ff;
+            }
+            .pipe-step .emoji {
+                font-size: 28px;
+                margin-bottom: 6px;
+            }
+            .pipe-step .label {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--purple-dark);
+            }
+            .pipe-step .model {
+                font-size: 11px;
+                color: var(--gray-400);
+                margin-top: 2px;
+            }
+            .pipe-arrow {
+                font-size: 20px;
+                color: var(--purple);
+                font-weight: 700;
+            }
+
+            /* ─── Stats ─── */
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 24px;
+                margin-top: 56px;
+            }
+            .stat-card {
+                background: var(--white);
+                border-radius: var(--radius-xl);
+                padding: 32px 24px;
+                text-align: center;
+                border: 1px solid var(--gray-200);
+            }
+            .stat-card .icon {
+                font-size: 32px;
+                margin-bottom: 12px;
+            }
+            .stat-card .val {
+                font-size: 36px;
+                font-weight: 900;
+                background: linear-gradient(135deg, var(--purple), var(--pink));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .stat-card .label {
+                font-size: 14px;
+                color: var(--gray-500);
+                margin-top: 4px;
+            }
+
+            /* ─── Tech Stack ─── */
+            .tech-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 16px;
+                margin-top: 40px;
+            }
+            .tech-item {
+                background: var(--white);
+                border: 1px solid var(--gray-200);
+                border-radius: var(--radius-md);
+                padding: 20px 16px;
+                text-align: center;
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--gray-700);
+                transition: border-color 0.2s;
+            }
+            .tech-item:hover {
+                border-color: var(--purple);
+            }
+            .tech-item .emoji {
+                display: block;
+                font-size: 24px;
+                margin-bottom: 6px;
+            }
+
+            /* ─── CTA Section ─── */
+            .cta {
+                text-align: center;
+                padding: 120px 24px;
+            }
+            .cta-card {
+                background: linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--pink),
+                    var(--orange)
+                );
+                border-radius: var(--radius-xl);
+                padding: 64px 40px;
+                color: var(--white);
+                max-width: 700px;
+                margin: 0 auto;
+            }
+            .cta-card h2 {
+                font-size: clamp(28px, 5vw, 40px);
+                font-weight: 800;
+                letter-spacing: -1px;
+                margin-bottom: 12px;
+            }
+            .cta-card p {
+                font-size: 17px;
+                opacity: 0.9;
+                margin-bottom: 32px;
+            }
+            .cta-card .btn-white {
+                background: var(--white);
+                color: var(--purple-dark);
+                border: none;
+                padding: 16px 40px;
+                border-radius: var(--radius-full);
+                font-size: 17px;
+                font-weight: 700;
+                cursor: pointer;
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+            }
+            .cta-card .btn-white:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+            }
+
+            /* ─── Footer ─── */
+            .footer {
+                border-top: 1px solid var(--gray-200);
+                padding: 40px 24px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
+                font-size: 14px;
+                color: var(--gray-500);
+            }
+            .footer .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
+                width: 100%;
+            }
+
+            /* ─── Responsive ─── */
+            @media (max-width: 768px) {
+                section {
+                    padding: 72px 16px;
+                }
+                .pipeline {
+                    padding: 24px;
+                }
+                .pipeline-flow {
+                    flex-direction: column;
+                }
+                .pipe-arrow {
+                    transform: rotate(90deg);
+                }
+                .cta-card {
+                    padding: 40px 24px;
+                }
+                .hero-app-icon {
+                    width: 72px;
+                    height: 72px;
+                    border-radius: 18px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Nav -->
+        <nav class="nav">
+            <div class="nav-inner">
+                <a href="#" class="nav-logo">
+                    <div class="nav-logo-icon">✨</div>
+                    AuraNova
+                </a>
+                <button
+                    class="nav-cta"
+                    onclick="
+                        document
+                            .getElementById('cta')
+                            .scrollIntoView({ behavior: 'smooth' })
+                    "
+                >
+                    Contact Us
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">🤖 AI-Powered Skincare</div>
+                <img src="icon.png" alt="AuraNova" class="hero-app-icon" />
+                <h1>
+                    <span class="gradient-text">Your Personal</span><br />
+                    Glow AI Coach ✨
+                </h1>
+                <p class="hero-subtitle">
+                    From your climate to your skincare shelf — we analyze it all
+                    to create your perfect routine.
+                </p>
+                <p class="hero-desc">
+                    Snap a selfie. Scan your products. Get an evidence-based,
+                    dermatologist-level skincare routine in minutes — powered by
+                    GPT-4o Vision and a medical knowledge wiki.
+                </p>
+                <div class="hero-buttons">
+                    <button
+                        class="btn-primary"
+                        onclick="
+                            document
+                                .getElementById('how')
+                                .scrollIntoView({ behavior: 'smooth' })
+                        "
+                    >
+                        🔮 See How It Works
+                    </button>
+                    <button
+                        class="btn-secondary"
+                        onclick="
+                            document
+                                .getElementById('cta')
+                                .scrollIntoView({ behavior: 'smooth' })
+                        "
+                    >
+                        📧 Contact Us
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="how">
+            <div class="container">
+                <div class="center">
+                    <div class="section-label">The Glow-Up Pipeline</div>
+                    <h2 class="section-title">
+                        3 Steps to Your<br />Perfect Routine
+                    </h2>
+                    <p class="section-desc mx-auto">
+                        No guesswork. No endless Google searches. Just
+                        science-backed skincare, personalized to you.
+                    </p>
+                </div>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>📸 Snap & Tell</h3>
+                        <p>
+                            Take a selfie with your front camera. Tell us about
+                            your skin concerns, climate, health factors, and
+                            goals. It's like chatting with your skincare bestie
+                            — emoji-friendly, zero judgment.
+                        </p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>🧪 AI Deep Analysis</h3>
+                        <p>
+                            GPT-4o Vision examines your skin texture, tone,
+                            pores, acne, and pigmentation. Then it scans your
+                            products' ingredients for safety and efficacy. All
+                            backed by our dermatological wiki of 42+
+                            research-backed pages.
+                        </p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>💫 Personalized Routine</h3>
+                        <p>
+                            Get a tailored skincare routine with product
+                            recommendations, ingredient insights, and daily
+                            tips. Track your progress over time. Share-worthy
+                            reports included!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Three Pillars -->
+        <section id="pillars" class="gradient-bg-soft">
+            <div class="container">
+                <div class="center">
+                    <div class="section-label">The AuraNova Ecosystem</div>
+                    <h2 class="section-title">
+                        Three Pillars of<br />Intelligent Skincare
+                    </h2>
+                </div>
+
+                <div class="pillars-grid">
+                    <!-- Mobile App -->
+                    <div class="pillar-card gradient-bg-card-purple">
+                        <div class="pillar-icon">📱</div>
+                        <h3>📱 Mobile App</h3>
+                        <p>
+                            A 9-step onboarding wizard that collects everything
+                            AI needs: your selfie, skin concerns, climate zone,
+                            health factors, current products, and goals.
+                            Dual-camera modes for single selfies and batch
+                            product scanning.
+                        </p>
+                        <div class="pillar-tags">
+                            <span class="pillar-tag">React Native + Expo</span>
+                            <span class="pillar-tag">TypeScript</span>
+                            <span class="pillar-tag">Secure AES Storage</span>
+                        </div>
+                        <div class="pillar-stat">
+                            <div>
+                                <div class="pillar-stat-val">9</div>
+                                <div class="pillar-stat-label">
+                                    Onboarding Steps
+                                </div>
+                            </div>
+                            <div>
+                                <div class="pillar-stat-val">2</div>
+                                <div class="pillar-stat-label">
+                                    Camera Modes
+                                </div>
+                            </div>
+                            <div>
+                                <div class="pillar-stat-val">6</div>
+                                <div class="pillar-stat-label">
+                                    Service Modules
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Backend -->
+                    <div class="pillar-card gradient-bg-card-pink">
+                        <div class="pillar-icon">🧠</div>
+                        <h3>🧠 AI Backend</h3>
+                        <p>
+                            A three-stage AI pipeline: skin photo analysis →
+                            product ingredient analysis → personalized routine
+                            synthesis. Each stage is fail-safe: if one AI call
+                            fails, the others keep working. RAG-powered with our
+                            own medical wiki.
+                        </p>
+                        <div class="pillar-tags">
+                            <span class="pillar-tag">GPT-4o Vision</span>
+                            <span class="pillar-tag">Node.js + Express</span>
+                            <span class="pillar-tag">Prisma + PostgreSQL</span>
+                        </div>
+                        <div class="pillar-stat">
+                            <div>
+                                <div class="pillar-stat-val">3</div>
+                                <div class="pillar-stat-label">AI Stages</div>
+                            </div>
+                            <div>
+                                <div class="pillar-stat-val">RAG</div>
+                                <div class="pillar-stat-label">
+                                    Wiki-Powered
+                                </div>
+                            </div>
+                            <div>
+                                <div class="pillar-stat-val">15+</div>
+                                <div class="pillar-stat-label">Conditions</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Knowledge Brain -->
+                    <div class="pillar-card gradient-bg-card-indigo">
+                        <div class="pillar-icon">📚</div>
+                        <h3>📚 Knowledge Brain</h3>
+                        <p>
+                            An LLM-maintained wiki with 42 interlinked pages
+                            spanning 13 skin diseases, AI/ML research evolution
+                            (2022–2025), WHO dermatological policy, and GBD
+                            epidemiology. Every recommendation is
+                            evidence-backed and traceable to source.
+                        </p>
+                        <div class="pillar-tags">
+                            <span class="pillar-tag"
+                                >LLM-Wiki Architecture</span
+                            >
+                            <span class="pillar-tag">10 Academic Sources</span>
+                            <span class="pillar-tag">Obsidian + Git</span>
+                        </div>
+                        <div class="pillar-stat">
+                            <div>
+                                <div class="pillar-stat-val">42</div>
+                                <div class="pillar-stat-label">Wiki Pages</div>
+                            </div>
+                            <div>
+                                <div class="pillar-stat-val">13</div>
+                                <div class="pillar-stat-label">Diseases</div>
+                            </div>
+                            <div>
+                                <div class="pillar-stat-val">150+</div>
+                                <div class="pillar-stat-label">Cross-refs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Pipeline Deep Dive -->
+        <section>
+            <div class="container">
+                <div class="center" style="margin-bottom: 40px">
+                    <div class="section-label">Under the Hood</div>
+                    <h2 class="section-title">The 3-Stage AI Pipeline</h2>
+                    <p class="section-desc mx-auto">
+                        Not just "ask ChatGPT" — a chain of three independent AI
+                        calls, each specialized and fail-safe.
+                    </p>
+                </div>
+
+                <div class="pipeline">
+                    <h3>🔬 How your data flows through the AuraNova AI</h3>
+                    <div class="pipeline-flow">
+                        <div class="pipe-step">
+                            <div class="emoji">🤳</div>
+                            <div class="label">Skin Analysis</div>
+                            <div class="model">GPT-4o Vision</div>
+                        </div>
+                        <div class="pipe-arrow">→</div>
+                        <div class="pipe-step">
+                            <div class="emoji">🧴</div>
+                            <div class="label">Product Analysis</div>
+                            <div class="model">GPT-4o Vision</div>
+                        </div>
+                        <div class="pipe-arrow">→</div>
+                        <div class="pipe-step">
+                            <div class="emoji">📖</div>
+                            <div class="label">Wiki RAG Context</div>
+                            <div class="model">AuraNovaBrain</div>
+                        </div>
+                        <div class="pipe-arrow">→</div>
+                        <div class="pipe-step">
+                            <div class="emoji">💡</div>
+                            <div class="label">Skincare Advice</div>
+                            <div class="model">GPT-4o + RAG</div>
+                        </div>
+                        <div class="pipe-arrow">→</div>
+                        <div
+                            class="pipe-step"
+                            style="
+                                background: linear-gradient(
+                                    135deg,
+                                    #dcfce7,
+                                    #fef9c3
+                                );
+                                border-color: #bbf7d0;
+                            "
+                        >
+                            <div class="emoji">✨</div>
+                            <div class="label">Your Routine</div>
+                            <div class="model">Stored + Tracked</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="gradient-bg-soft">
+            <div class="container">
+                <div class="center">
+                    <div class="section-label">By the Numbers</div>
+                    <h2 class="section-title">
+                        Built on Science,<br />Loved by Users
+                    </h2>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="icon">👩‍🔬</div>
+                        <div class="val">10K+</div>
+                        <div class="label">Glowing Girls in Community</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon">📄</div>
+                        <div class="val">42</div>
+                        <div class="label">Research-Backed Wiki Pages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon">🤖</div>
+                        <div class="val">92.5%</div>
+                        <div class="label">AI Diagnostic Accuracy</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon">🔐</div>
+                        <div class="val">AES</div>
+                        <div class="label">Hardware-Encrypted Storage</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon">🧴</div>
+                        <div class="val">15+</div>
+                        <div class="label">Skin Conditions Analyzed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon">🌍</div>
+                        <div class="val">3</div>
+                        <div class="label">Independent AI Analysis Stages</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section>
+            <div class="container">
+                <div class="center" style="margin-bottom: 32px">
+                    <div class="section-label">Tech Stack</div>
+                    <h2 class="section-title">
+                        Modern, Scalable,<br />Open-Source Friendly
+                    </h2>
+                </div>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <span class="emoji">⚛️</span>React Native
+                    </div>
+                    <div class="tech-item">
+                        <span class="emoji">📘</span>TypeScript
+                    </div>
+                    <div class="tech-item">
+                        <span class="emoji">🧠</span>GPT-4o Vision
+                    </div>
+                    <div class="tech-item">
+                        <span class="emoji">🚂</span>Express.js
+                    </div>
+                    <div class="tech-item">
+                        <span class="emoji">🗄️</span>PostgreSQL
+                    </div>
+                    <div class="tech-item">
+                        <span class="emoji">🔷</span>Prisma ORM
+                    </div>
+                    <div class="tech-item">
+                        <span class="emoji">🐳</span>Docker
+                    </div>
+                    <div class="tech-item">
+                        <span class="emoji">📚</span>RAG + Wiki
+                    </div>
+                    <div class="tech-item">
+                        <span class="emoji">🔐</span>AES Encryption
+                    </div>
+                    <div class="tech-item">
+                        <span class="emoji">🏗️</span>EAS Build
+                    </div>
+                    <div class="tech-item">
+                        <span class="emoji">📸</span>Multer Upload
+                    </div>
+                    <div class="tech-item">
+                        <span class="emoji">🔄</span>Git + Obsidian
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta" id="cta">
+            <div class="cta-card">
+                <h2>Ready to Glow Up? ✨</h2>
+                <p>
+                    Join thousands of girls who switched from guessing to
+                    science. Your AI skincare bestie is waiting — no judgment,
+                    just results. 💜
+                </p>
+                <a href="mailto:zaytunasaydullaeva@gmail.com" class="btn-white"
+                    >📧 Contact Us</a
+                >
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div
+                    style="
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        font-weight: 700;
+                        color: var(--purple);
+                    "
+                >
+                    <div
+                        style="
+                            width: 28px;
+                            height: 28px;
+                            background: linear-gradient(
+                                135deg,
+                                var(--purple),
+                                var(--pink),
+                                var(--orange)
+                            );
+                            border-radius: 6px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 14px;
+                        "
+                    >
+                        ✨
+                    </div>
+                    AuraNova
+                </div>
+                <div style="display: flex; gap: 24px">
+                    <span>© 2026 AuraNova</span>
+                    <span style="color: var(--gray-400)">·</span>
+                    <span>Built with 💜 & Science</span>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
